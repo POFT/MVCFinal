@@ -40,7 +40,7 @@ public class ClientController {
     }
 
     /**
-     * Função para imprimir uma atração e converter duração de segundos para horas, minutis e segundos
+     * Função para imprimir uma atração e converter duração de segundos para horas, minutos e segundos
      * @param atracao
      */
     private void imprimeAtracao(Atracao atracao) {
@@ -63,10 +63,10 @@ public class ClientController {
 
 
     /**
-     * Função para imprimir a atração mais procurada por adultos e a atração mais procurada por crianças,
+     * Função para imprimir a atração mais procurada por adultos,
      * (Mais procurada é a que vendeu mais bilhetes no total para o respetivo segmento de cliente)
      */
-    public void imprimirAtracoesMaisProcuradas() throws FileNotFoundException {
+    public Atracao atracaoMaisProcuradaAdultos() throws FileNotFoundException {
         // Chamar 2 repositórios "Vendas" e "Atracoes"
         ArrayList<Venda> vendasArray = new VendasRepository().getVendasArray();
         ArrayList<Atracao> atracoesArray = new AtracoesRepository().getAtracoesArray();
@@ -74,8 +74,6 @@ public class ClientController {
         // Contar e guardar o numero de vendas por cada atração por tipo de cliente (adulto):
         int[] contadorVendasAdultos = new int[getAtracoesRepository().getAtracoesArray().size()];
 
-        // Contar e guardar o numero de vendas por cada atração por tipo de cliente (crinça):
-        int[] contadorVendasCrianca = new int[getAtracoesRepository().getAtracoesArray().size()];
 
         //Iterar o Array de vendas, para cada venda ele guarda o IdAtração e o tipo de cliente...
         for (int i = 0; i < vendasArray.size(); i++) {
@@ -86,17 +84,12 @@ public class ClientController {
             //...tipo de cliente ele incrementa o contador correspondente (contadorVendasAdultos ou contadorVendasCrianca)
             if (clienteTipo.equalsIgnoreCase("adulto")) {
                 contadorVendasAdultos[idAtracao-1]++;
-            } else if (clienteTipo.equalsIgnoreCase("crianca")) {
-                contadorVendasCrianca[idAtracao-1]++;
             }
         }
 
-
         // Validar a atração com mais vendas por tipo de cliente
         int maxVendasAdultos = 0; //Vai guardar o total de vendas adultos (atração mais procurada)
-        int maxVendasCriancas = 0; //Vai guardar o total de vendas crianças (atração mais procurada)
         Atracao adultoAtracao = null;
-        Atracao criancaAtracao = null;
 
         for (int i = 0; i < contadorVendasAdultos.length; i++) {
             if (contadorVendasAdultos[i] > maxVendasAdultos) {
@@ -104,21 +97,82 @@ public class ClientController {
                 adultoAtracao = atracoesArray.get(i);
             }
         }
+        return adultoAtracao;
+    }
 
 
-        for (int i = 0; i < contadorVendasCrianca.length; i++) {
-            if (contadorVendasCrianca[i] > maxVendasCriancas) {
-                maxVendasCriancas = contadorVendasCrianca[i];
-                criancaAtracao = atracoesArray.get(i);
+
+    /**
+     * Função para imprimir a atração mais procurada por crianças,
+     * (Mais procurada é a que vendeu mais bilhetes no total para o respetivo segmento de cliente)
+     */
+    public Atracao atracaoMaisProcuradaCriancas() throws FileNotFoundException {
+
+        ArrayList<Venda> vendasArray = new VendasRepository().getVendasArray();
+        ArrayList<Atracao> atracoesArray = new AtracoesRepository().getAtracoesArray();
+        int[] contadorVendasCriancas = new int[getAtracoesRepository().getAtracoesArray().size()];
+
+        for (int i = 0; i < vendasArray.size(); i++) {
+            Venda venda = vendasArray.get(i);
+            int idAtracao = venda.getIdAtracao();
+            String clienteTipo = venda.getClienteTipo();
+
+            if (clienteTipo.equalsIgnoreCase("adulto")) {
+                contadorVendasCriancas[idAtracao-1]++;
             }
         }
 
-        // Imprimir resultado na consola (Atração mais procurada + total de vendas):
-        System.out.println("\n-> ATRAÇÃO MAIS PROCURADA:");
-        System.out.println("___________________________________________________________________");
-        System.out.println("ADULTOS: " + adultoAtracao.getNome() + " | TOTAL VENDAS: " + maxVendasAdultos);
-        System.out.println("___________________________________________________________________");
-        System.out.println("CRIANÇAS: " + criancaAtracao.getNome() + " | TOTAL VENDAS: " + maxVendasCriancas);
-        System.out.println("___________________________________________________________________");
+        int maxVendasCriancas = 0;
+        Atracao criancaAtracao = null;
+
+        for (int i = 0; i < contadorVendasCriancas.length; i++) {
+            if (contadorVendasCriancas[i] > maxVendasCriancas) {
+                maxVendasCriancas = contadorVendasCriancas[i];
+                criancaAtracao = atracoesArray.get(i);
+            }
+        }
+        return criancaAtracao;
+    }
+
+//
+//    public Atracao maisProcurada() {
+//        int maisVendas = 0; //Vai guardar o total de vendas crianças (atração mais procurada)
+//        Atracao maisProcurada = null;
+//
+//        for (int i = 0; i < 10; i++) {
+//            if (contadorVendas[i] > maisVendas) {
+//                maisVendas = contadorVendas[i];
+//                maisProcurada = atracoesArray.get(i);
+//
+//            }
+//
+//        }
+//    }
+
+
+    public Atracao atracaoMaisProcurada() throws FileNotFoundException {
+        ArrayList<Venda> vendasArray = new VendasRepository().getVendasArray();
+        ArrayList<Atracao> atracoesArray = new AtracoesRepository().getAtracoesArray();
+
+        int[] contadorVendas = new int[getAtracoesRepository().getAtracoesArray().size()];
+
+        // Iterar o Array de vendas, para cada venda ele guarda o IdAtração
+        for (int i = 0; i < vendasArray.size(); i++) {
+            Venda venda = vendasArray.get(i);
+            int idAtracao = venda.getIdAtracao();
+            contadorVendas[idAtracao-1]++;
+        }
+
+        // Validar a atração com mais vendas
+        int maxVendas = 0;
+        Atracao atracaoMaisProcurada = null;
+
+        for (int i = 0; i < contadorVendas.length; i++) {
+            if (contadorVendas[i] > maxVendas) {
+                maxVendas = contadorVendas[i];
+                atracaoMaisProcurada = atracoesArray.get(i);
+            }
+        }
+        return atracaoMaisProcurada;
     }
 }

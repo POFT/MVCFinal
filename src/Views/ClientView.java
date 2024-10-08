@@ -1,6 +1,7 @@
 package Views;
 
 import Controllers.ClientController;
+import Model.Atracao;
 import Repositories.AtracoesRepository;
 
 import java.io.FileNotFoundException;
@@ -45,7 +46,7 @@ public class ClientView {
                     System.out.println("\n|||||||||||||||||||||||||||||||||||||||||");
                     System.out.println("\n [2. CONSULTAR ATRAÇÕES FAVORITAS]");
                     System.out.println(" ");
-                    clientController.imprimirAtracoesMaisProcuradas();
+                    //this.imprimeAtraçãoMaisProcurada();
                     System.out.println(" ");
                     break;
                 case 3:
@@ -61,6 +62,37 @@ public class ClientView {
         }while(opcaoCliente!=3); // Enquanto o input do user é diferente de 3 (MENU INICIAL)// TERMINA A FUNCAO
     }
 
+
+
+    public void imprimeAtraçãoMaisProcurada() throws FileNotFoundException {
+        // Imprimir resultado na consola (Atração mais procurada + total de vendas):
+        System.out.println("\n-> ATRAÇÃO MAIS PROCURADA:");
+        System.out.println("___________________________________________________________________");
+        System.out.println("ATRAÇÃO: " + clientController.atracaoMaisProcurada().getNome());
+        System.out.println("___________________________________________________________________");
+
+    }
+
+    public void imprimeAtraçãoMaisProcuradaAdultos() throws FileNotFoundException {
+        // Imprimir resultado na consola (Atração mais procurada + total de vendas):
+        System.out.println("\n-> ATRAÇÃO MAIS PROCURADA ADULTOS:");
+        System.out.println("___________________________________________________________________");
+        System.out.println("ATRAÇÃO: " + clientController.atracaoMaisProcuradaAdultos().getNome());
+        System.out.println("___________________________________________________________________");
+
+    }
+
+
+    public void imprimeAtraçãoMaisProcuradaCriancaS() throws FileNotFoundException {
+        // Imprimir resultado na consola (Atração mais procurada + total de vendas):
+        System.out.println("\n-> ATRAÇÃO MAIS PROCURADA CRIANÇAS:");
+        System.out.println("___________________________________________________________________");
+        System.out.println("ATRAÇÃO: " + clientController.atracaoMaisProcuradaCriancas().getNome());
+        System.out.println("___________________________________________________________________");
+
+    }
+
+
     public void displayAtracoesTable() {
         AtracoesRepository atracoesRepository = clientController.getAtracoesRepository();
         imprimirTabelaAtracoes(atracoesRepository);
@@ -68,5 +100,7 @@ public class ClientView {
 
     private void imprimirTabelaAtracoes(AtracoesRepository atracoesRepository) {
     }
+
+
 }
 
