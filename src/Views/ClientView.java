@@ -39,19 +39,20 @@ public class ClientView {
                     System.out.println("\n|||||||||||||||||||||||||||||||||||||||||");
                     System.out.println("\n [1. CONSULTAR ATRAÇÕES DISPONÍVEIS]");
                     System.out.println(" ");
-                    clientController.imprimirAtracoes();
+                    this.imprimirTabelaAtracoes();
                     System.out.println(" ");
                     break;
                 case 2:
                     System.out.println("\n|||||||||||||||||||||||||||||||||||||||||");
                     System.out.println("\n [2. CONSULTAR ATRAÇÕES FAVORITAS]");
                     System.out.println(" ");
-                    //this.imprimeAtraçãoMaisProcurada();
+                    this.imprimeAtracaoMaisProcuradaAdultos();
+                    this.imprimeAtracaoMaisProcuradaCriancaS();
                     System.out.println(" ");
                     break;
                 case 3:
                     System.out.println(" ");
-                    System.out.println("\n [3. SAIR]");
+                    System.out.println("\n [3. SAIR ]");
                     System.out.println(" ");
                     System.out.println("\n|||||||||||||||||||||||||||||||||||||||||");
                     break;
@@ -63,27 +64,33 @@ public class ClientView {
     }
 
 
+    public void imprimirTabelaAtracoes() throws FileNotFoundException {
+        System.out.println("\n-> TABELA DE ATRAÇÕES:");
+        System.out.println("___________________________________________________________________");
+        clientController.imprimirAtracoes();
+        System.out.println("___________________________________________________________________");
+    }
 
-    public void imprimeAtraçãoMaisProcurada() throws FileNotFoundException {
+    public void imprimeAtracaoMaisProcurada() throws FileNotFoundException {
         // Imprimir resultado na consola (Atração mais procurada + total de vendas):
         System.out.println("\n-> ATRAÇÃO MAIS PROCURADA:");
         System.out.println("___________________________________________________________________");
-        System.out.println("ATRAÇÃO: " + clientController.atracaoMaisProcurada().getNome());
+        System.out.println(clientController.atracaoMaisProcurada().getNome());
         System.out.println("___________________________________________________________________");
 
     }
 
-    public void imprimeAtraçãoMaisProcuradaAdultos() throws FileNotFoundException {
+    public void imprimeAtracaoMaisProcuradaAdultos() throws FileNotFoundException {
         // Imprimir resultado na consola (Atração mais procurada + total de vendas):
         System.out.println("\n-> ATRAÇÃO MAIS PROCURADA ADULTOS:");
         System.out.println("___________________________________________________________________");
-        System.out.println("ATRAÇÃO: " + clientController.atracaoMaisProcuradaAdultos().getNome());
+        System.out.println(clientController.atracaoMaisProcuradaAdultos().getNome());
         System.out.println("___________________________________________________________________");
 
     }
 
 
-    public void imprimeAtraçãoMaisProcuradaCriancaS() throws FileNotFoundException {
+    public void imprimeAtracaoMaisProcuradaCriancaS() throws FileNotFoundException {
         // Imprimir resultado na consola (Atração mais procurada + total de vendas):
         System.out.println("\n-> ATRAÇÃO MAIS PROCURADA CRIANÇAS:");
         System.out.println("___________________________________________________________________");
@@ -91,16 +98,5 @@ public class ClientView {
         System.out.println("___________________________________________________________________");
 
     }
-
-
-    public void displayAtracoesTable() {
-        AtracoesRepository atracoesRepository = clientController.getAtracoesRepository();
-        imprimirTabelaAtracoes(atracoesRepository);
-    }
-
-    private void imprimirTabelaAtracoes(AtracoesRepository atracoesRepository) {
-    }
-
-
 }
 
