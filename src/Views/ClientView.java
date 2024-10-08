@@ -89,7 +89,6 @@ public class ClientView {
 
     }
 
-
     public void imprimeAtracaoMaisProcuradaCriancaS() throws FileNotFoundException {
         // Imprimir resultado na consola (Atração mais procurada + total de vendas):
         System.out.println("\n-> ATRAÇÃO MAIS PROCURADA CRIANÇAS:");

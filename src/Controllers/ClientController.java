@@ -170,19 +170,5 @@ public class ClientController {
         }
         return criancaAtracao;
     }
-
-//
-//    public Atracao maisProcurada() {
-//        int maisVendas = 0; //Vai guardar o total de vendas crianças (atração mais procurada)
-//        Atracao maisProcurada = null;
-//
-//        for (int i = 0; i < 10; i++) {
-//            if (contadorVendas[i] > maisVendas) {
-//                maisVendas = contadorVendas[i];
-//                maisProcurada = atracoesArray.get(i);
-//
-//            }
-//
-//        }
-//    }
+    
 }
